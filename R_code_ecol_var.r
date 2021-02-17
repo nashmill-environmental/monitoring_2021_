@@ -49,4 +49,52 @@ pairs(meuse)
 # only with cadmium, copper, lead zinc ...
 
 
+##########################
+
+# Lecture #2 on ecological variables
+
+# Exercise 
+# Recall the package sp, recall the dataset meuse 
+
+library(sp)
+data(meuse)
+
+pairs(meuse)
+
+head(meuse)
+
+# cadmium copper lead zinc
+# pairs with soil variables
+# from column 3 to column 6
+pairs(meuse[,3:6]) # how to do quadratic parathenses: AltGr + e
+
+# let's use the names of the columns:
+pairs(~ cadmium + copper + lead + zinc, data=meuse)
+# tiled is going to do done by AltGr + ^
+# in windows: Alt + 0126 or Alt + 126
+# In Mac: alt + n on mac
+
+# let's prettify the graph
+# Exercise: just use cadmium lead and zinc 
+pairs(~ cadmium + lead + zinc, data=meuse)
+
+# Exercise: change the color
+pairs(~ cadmium + lead + zinc, data=meuse, col="blue")
+
+# for the future change colours of single panels by the par() function
+
+# Exercise: change the symbol to filled triangles: pch
+pairs(~ cadmium + lead + zinc, data=meuse, col="blue", pch=24)
+
+# nice page on pairs:
+# https://statisticsglobe.com/r-pairs-plot-example/
+
+# Exercise: increase the size of the triangles
+pairs(~ cadmium + lead + zinc, data=meuse, col="blue", pch=24, cex=2)
+
+
+
+
+
+
 
