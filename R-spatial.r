@@ -94,6 +94,7 @@ ggplot(covid, aes(x = lon, y = lat)) + geom_point()
 # change the size of the data...
 ggplot(covid, aes(x = lon, y = lat, size = cases)) + geom_point()
 
+
   
   
   
