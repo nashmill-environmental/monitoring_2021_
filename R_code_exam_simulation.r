@@ -9,6 +9,7 @@ library(raster)
 
 srtwed("c:/lab/")
 
+# importing images
 tjan <- raster("c_gls_LST_202101181300_GLOBE_GEO_V1.2.1")
 plot(tjan)
 
@@ -22,3 +23,8 @@ plot(toct, col=cltjan)
 dift <- tjan - toct
 cldif <- colorRampPalette(c('blue', 'white', 'red'))(100) #
 plot(dift, col=cldif)
+
+ 
+    
+     
+         
