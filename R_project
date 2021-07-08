@@ -1,0 +1,130 @@
+# MONITORING ECOSYSTEMS CHANGES AND FUNCTIONING - UNIBO 2020/2021 
+# Professor Duccio Rocchini 
+# student: Nashmil Syamand Hasan
+
+# Object: observation the difference between vegetation properties and land surface temperature in 10 years
+
+# I already have installed all the packages needed, using the input "install.packages("name of the package")" 
+# I recall the needed libraries:
+
+library(raster) # geographic data analysis & modeling 
+library(rgdal) # for .hdf files from MODIS 
+library(ncdf4) # for .nc files 
+
+# Setting the working directory. This is in order to be able to import the files into R
+setwd("C:/lab/") 
+
+# Raster the Vegetation properties data for the 10 years period 2010-2020, on the 21th of March of each year
+# datset from Copernicus, link below:
+# https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
+
+v2010 <- raster("c_gls_LAI_201005200000_GLOBE_VGT_V2.0.1.nc")
+v2012 <- raster("c_gls_LAI_201205200000_GLOBE_VGT_V2.0.1.nc")
+v2014 <- raster("c_gls_LAI-RT6_201405200000_GLOBE_PROBAV_V2.0.2.nc")
+v2016 <- raster("c_gls_LAI-RT6_201605200000_GLOBE_PROBAV_V2.0.2.nc")
+v2018 <- raster("c_gls_LAI-RT6_201805200000_GLOBE_PROBAV_V2.0.1.nc")
+v2020 <- raster("c_gls_LAI-RT2_202005200000_GLOBE_PROBAV_V2.0.1.nc")
+
+# Set the colours palette for the plotting  
+clv <- colorRampPalette(c('yellow', 'darkolivegreen2', 'green4'))(100)#
+
+# to export and save the images in .png format, into the directory folder
+png("figure1.png")
+
+# Plot the images in two rows and 3 columns to allow showing the label on each image 
+par(mfrow=c(2,3))
+
+# In order to change the title above the plots, make use of the function: main=""
+plot(v2010, col=clv, main="Vegetation Property 2010")
+plot(v2012, col=clv, main="Vegetation Property 2012")
+plot(v2014, col=clv, main="Vegetation Property 2014")
+plot(v2016, col=clv, main="Vegetation Property 2016")
+plot(v2018, col=clv, main="Vegetation Property 2018")
+plot(v2020, col=clv, main="Vegetation Property 2020")
+
+#change color for differentation of 10 years
+cldifv <- colorRampPalette(c('yellow', 'forestgreen', 'firebrick2'))(100)#
+
+difv <- v2010-v2020
+
+# to export and save the images in .png format, into the directory folder
+png("figure2.png")
+
+# In order to change the title above the plots, make use of the function: main=""
+plot(difv, col=cldifv, main="Different between 10 years")
+
+################################################
+
+# Raster the Land surface teperature data for the 10 years period 2010-2020, on the 20th of March of each year
+# datset from Copernicus, link below:
+# https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
+
+t2010 <- raster("c_gls_LST_201010201300_GLOBE_GEO_V1.2.1.nc")
+t2012 <- raster("c_gls_LST_201203201300_GLOBE_GEO_V1.2.1.nc")
+t2014 <- raster("c_gls_LST_201403201300_GLOBE_GEO_V1.2.1.nc")
+t2016 <- raster("c_gls_LST_201603201300_GLOBE_GEO_V1.2.1.nc")
+t2018 <- raster("c_gls_LST_201803201300_GLOBE_GEO_V1.2.1.nc")
+t2020 <- raster("c_gls_LST_202003201300_GLOBE_GEO_V1.2.1.nc")
+
+# Set the colours palette for the plotting  
+clt <- colorRampPalette(c('red', 'black', 'yellow2'))(100)#
+
+# to export and save the images in .png format, into the directory folder
+png("figure3.png")
+
+# Plot the images in two rows and 3 columns to allow showing the label on each image 
+par(mfrow=c(2,3))
+
+# In order to change the title above the plots, make use of the function: main=""
+plot(t2010, col=clt, main="Land Surface Temperature 2010")
+plot(t2012, col=clt, main="Land Surface Temperature 2012")
+plot(t2014, col=clt, main="Land Surface Temperature 2014")
+plot(t2016, col=clt, main="Land Surface Temperature 2016")
+plot(t2018, col=clt, main="Land Surface Temperature 2018")
+plot(t2020, col=clt, main="Land Surface Temperature 2020")
+
+#change color for differentation of 10 years
+cldift <- colorRampPalette(c('gray42', 'tan1', 'yellow'))(100)#
+
+dift <- t2010-t2020
+
+# to export and save the images in .png format, into the directory folder
+png("figure4.png")
+
+# In order to change the title above the plots, make use of the function: main=""
+plot(dift, col=cldift, main="Different Temperature between 10 years")
+
+###################################################################################
+
+# Now I will try to import the files 
+# First, I need to create a list of all my 6 files ==> And make use of the function: list.files() ==> For that I need to create a pattern I want the list of files to follow: pattern=
+# Check the name of the files, and see what characters they have in common: "c_gls_LAI"
+
+v.list <- list.files(pattern="c_gls_LAI")
+v.list
+# From this I can see that they have been listed 
+
+# Now I want to make use of the function: lapply()
+# It is a useful function to perform operations on list objects
+# State which data I want to apply the function on: v.list
+# Furthermore, I want to apply raster function over the list: raster
+
+list_rast <- lapply(v.list, raster)
+
+# Stack the images together
+# This is to set all the images together, so it looks like a satellite image
+v.multitemp <- stack(list_rast)
+
+# Plot the images with the color ramp palette
+clstack <- colorRampPalette(c('cyan', 'coral', 'chartreuse'))(100)#
+png("figure5.png")
+plot(v.multitemp , col=clstack)
+dev.off()
+
+##############################################################################
+
+# Thank you for your attention
+
+
+
+
