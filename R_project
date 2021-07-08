@@ -1,8 +1,8 @@
 # MONITORING ECOSYSTEMS CHANGES AND FUNCTIONING - UNIBO 2020/2021 
-# Professor Duccio Rocchini 
+# Professor: Duccio Rocchini 
 # student: Nashmil Syamand Hasan
 
-# Object: observation the difference between vegetation properties and land surface temperature in 10 years
+# Object: observation the difference between vegetation properties and land surface temperature in 10 years in R
 
 # I already have installed all the packages needed, using the input "install.packages("name of the package")" 
 # I recall the needed libraries:
@@ -124,6 +124,7 @@ dev.off()
 ##############################################################################
 
 # Thank you for your attention
+
 
 
 
