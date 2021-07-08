@@ -8,7 +8,6 @@
 # I recall the needed libraries:
 
 library(raster) # geographic data analysis & modeling 
-library(rgdal) # for .hdf files from MODIS 
 library(ncdf4) # for .nc files 
 
 # Setting the working directory. This is in order to be able to import the files into R
